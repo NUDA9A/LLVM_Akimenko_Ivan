@@ -74,14 +74,14 @@ void app(void) {
   int field[SIM_X_SIZE][SIM_Y_SIZE];
   int new_field[SIM_X_SIZE][SIM_Y_SIZE];
   fill_init_field(field);
-//  while (1) {
-//    display_epoch(field);
-//    simFlush();
-//    update_field(field, new_field);
-//  }
-  for (int i = 0; i < 2; ++i) {
+  while (1) {
     display_epoch(field);
     simFlush();
     update_field(field, new_field);
   }
+//  for (int i = 0; i < 2; ++i) {
+//    display_epoch(field);
+//    simFlush();
+//    update_field(field, new_field);
+//  }
 }
