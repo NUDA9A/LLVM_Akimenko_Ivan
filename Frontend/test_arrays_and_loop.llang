@@ -1,0 +1,15 @@
+func fill(field[10, 10]) {
+    var x, y;
+    loop (x < 10; x++) {
+        y = 0;
+        loop (y < 10; y++) {
+            field[x, y] = x + y;
+        }
+    }
+}
+
+func main() {
+    var field[10, 10];
+    fill(field);
+    return 0;
+}

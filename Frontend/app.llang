@@ -1,0 +1,80 @@
+func init(field[500, 500]) {
+    var x, y;
+    loop (x < 500; x++) {
+        y = 0;
+        loop (y < 500; y++) {
+            if (rand() % 2 && rand() % 2) {
+                field[x, y] = 1;
+            } else {
+                field[x, y] = 0;
+            }
+        }
+    }
+}
+
+func display(field[500, 500]) {
+    var x, y;
+    loop (x < 500; x++) {
+        y = 0;
+        loop (y < 500; y++) {
+            if (field[x, y]) {
+                put_pixel(x, y, WHITE);
+            } else {
+                put_pixel(x, y, 0);
+            }
+        }
+    }
+}
+
+func count_alive_pixels(x, y, field[500, 500]) {
+    var d[3, 1] = {-1, 0, 1}, res, i, j;
+    loop (i < 3; i++) {
+        j = 0;
+        loop (j < 3; j++) {
+            if (0 <= x + d[i, 0] && x + d[i, 0] < 500 && 0 <= y + d[j, 0] && y + d[j, 0] < 500) {
+                if (field[x + d[i, 0], y + d[j, 0]]) {
+                    if (d[i, 0] != 0 || d[j, 0] != 0) {
+                        res++;
+                    }
+                }
+            }
+        }
+    }
+    return res;
+}
+
+func set_new_field_x_y(x, y, pixel, count, new_field[500, 500]) {
+    new_field[x, y] = 0;
+    if (pixel) {
+        if (count == 2 || count == 3) {
+            new_field[x, y] = 1;
+        }
+    } else {
+        if (count == 3) {
+            new_field[x, y] = 1;
+        }
+    }
+}
+
+func update(field[500, 500]) {
+    var new_field[500, 500], x, y;
+    loop (x < 500; x++) {
+        y = 0;
+        loop (y < 500; y++) {
+            var count = count_alive_pixels(x, y, field);
+            set_new_field_x_y(x, y, field[x, y], count, new_field);
+        }
+    }
+
+    field = new_field;
+}
+
+func main() {
+    var field[500, 500];
+    init(field);
+    loop {
+        display(field);
+        flush();
+        update(field);
+    }
+}

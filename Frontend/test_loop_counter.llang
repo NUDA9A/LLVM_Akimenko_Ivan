@@ -1,0 +1,9 @@
+func main() {
+    var a, b;
+
+    loop (a < 10; a++) {
+        b = b + a;
+    }
+
+    return 45 - b;
+}
